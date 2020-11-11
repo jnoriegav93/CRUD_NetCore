@@ -1,0 +1,28 @@
+@model proyecto.Models.UserModel
+@{
+    ViewData["Title"] = "Acceder"; 
+    Layout = "_Layout_offline";
+}
+
+
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4  login-form-1">
+                    <h3>Acceder</h3>
+                    <form asp-controller="Home" asp-action="Autenticar" method="POST">
+                        <div>
+                            <label>Usuario</label>
+                            <input asp-for="usuario" class="form-control"/>
+                        </div>
+                        
+                        <div>
+                            <label>Clave</label>
+                            <input asp-for="clave"class="form-control" type="password"/>
+                        </div>
+                        <div>
+                            <button type="submit" class="btnSubmit">Acceder</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-4"></div>
+            </div>

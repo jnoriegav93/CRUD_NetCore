@@ -1,0 +1,46 @@
+﻿@model List<proyecto.Models.ListModel>
+@{
+    var ModelFinal =  Model;
+}
+<h1>@ViewData["Title"]</h1>
+@Html.ActionLink("Nuevo","NuevaPersona")
+<table class="table">
+    <thead>
+        <tr>
+        <th>ID</th>
+        <th>Nombres</th>
+        <th>Apellidos</th>
+        <th>DNI</th>
+        <th style="display:none">Nacimiento</th>
+        <th>Sexo</th>
+        <th>Distrito</th>
+        <th style="display:none">Celular</th>
+        <th style="display:none">Estado</th>
+        <th style="display:none">Creación</th>
+        <th></th>
+        <th style="display:none"></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in ModelFinal)
+{
+    <tr>
+        <td>@item.id</td>
+        <td>@item.nombres</td>
+        <td>@item.apaterno @item.amaterno</td>
+        <td>@item.dni</td>
+        <td style="display:none">@item.fechanac</td>
+        <td>@item.sexo</td>
+        <td>@item.distrito</td>
+        <td style="display:none">@item.celular</td>
+        <td style="display:none">@item.estado</td>
+        <td style="display:none">@item.fechacreacion</td>    
+        <td><a asp-action="DetallePersona" asp-route-id="@item.id">Detalle</a> </td>
+        <td style="display:none"><a asp-action="EliminarPersona" asp-route-id="@item.id">Eliminar</a></td>
+        
+                    
+                    
+    </tr>
+}
+</tbody>
+</table>

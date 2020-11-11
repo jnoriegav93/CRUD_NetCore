@@ -1,0 +1,24 @@
+﻿@model proyecto.Models.UserModel
+@{
+    ViewData["Title"] = "Inicio";
+    /*String usuario="";   
+    
+    if(TempData["login"]!=null){           
+    Layout = "_Layout";
+    usuario = TempData["login"].ToString();
+    }
+    else{           
+    Layout = "_Layout_offline";
+    }*/
+    
+    Layout = "_Layout_offline";
+}
+
+<div class="text-center">
+    <h2 class="display-4">Bienvenido a la página principal.</h2>
+    <p>Necesitas ingresar para ver el contenido de la página.</p>
+
+    @Html.ActionLink("Acceder al sistema", "Login", "Home", routeValues: null, 
+    htmlAttributes: new { @class = "btn btn-primary", @role="button" })  
+
+</div>

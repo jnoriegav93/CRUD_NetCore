@@ -1,0 +1,28 @@
+@model proyecto.Models.ListModel
+<h1>@ViewData["Titulo"]</h1>
+@{
+    var persona = Model;
+}
+
+<form asp-controller="Home" asp-action="GuardarPersona" method="POST"> 
+ <table>
+    <tbody>
+        <tr><td></td><td>@Html.HiddenFor(m => persona.id, new { @class = "form-control"  })  </td></tr>        
+        <tr><td>Nombres:</td><td>@Html.TextBoxFor(m => persona.nombres, new { @class = "form-control" })  </td></tr>
+        <tr><td>Apellido Paterno:</td><td>@Html.TextBoxFor(m => persona.apaterno, new { @class = "form-control" })</td></tr>
+        <tr><td>Apellido Materno:</td><td>@Html.TextBoxFor(m => persona.amaterno, new { @class = "form-control" })</td></tr>
+        <tr><td>DNI:</td><td>@Html.TextBoxFor(m => persona.dni, new { @class = "form-control" })</td></tr>
+        <tr><td>Fecha de nacimiento:</td><td>@Html.TextBoxFor(m => persona.fechanac, new { @class = "form-control" })</td></tr>
+        <tr><td>Sexo:</td><td>@Html.DropDownListFor(model => persona.sexo, persona.lstSexos,new { @class = "form-control" })</td></tr>
+        <tr><td>Distrito:</td><td>@Html.DropDownListFor(model => persona.distrito, persona.lstDistritos,new { @class = "form-control" })</td></tr>
+        <tr><td>Celular:</td><td>@Html.TextBoxFor(m => persona.celular, new { @class = "form-control" })</td></tr>
+        <tr><td>Estado:</td><td>@Html.DropDownListFor(model => persona.estado, persona.lstEstados,new { @class = "form-control" })</td></tr>
+        <tr><td>Fecha de creación:</td><td>@Html.TextBoxFor(m => persona.fechacreacion, new { @class = "form-control" })</td></tr>
+
+    </tbody>
+</table>
+<button type="submit" class="btnSubmit">Actualizar</button>
+</form>
+
+
+ 

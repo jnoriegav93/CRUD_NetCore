@@ -60,12 +60,14 @@ namespace proyecto.Controllers
         [Route("DetallePersona/{id}")]
         public IActionResult DetallePersona(int id)
         {
+            ViewData["Title"] = "Persona "+id;
             ViewData["Titulo"] = "Detalle de la persona N° " + id;
             var persona = lstPersonas.DetallePersona(LeerTXT(),id);
             return View(persona);
         }
         public IActionResult NuevaPersona()
         {
+             ViewData["Title"] = "Nueva Persona";
             ViewData["Titulo"] = "Registrar nueva persona";
             return View();
         }
@@ -95,7 +97,7 @@ namespace proyecto.Controllers
             }
             else
             {
-                TempData["login"] = DatosDelLogin;
+                TempData["login"] = token;
                 return RedirectToAction("Principal", "Home", new { usuario = usuarioConectado.usuario,
                                                                     token = token });
             }
@@ -160,7 +162,7 @@ namespace proyecto.Controllers
             mensaje += (!String.IsNullOrEmpty(persona.amaterno)) ? "" : "Ingresar el apellido materno.\r\n";
             mensaje += (!String.IsNullOrEmpty(persona.dni)) ? "" : "Ingresar el nombre de la persona.\r\n";
             mensaje += (!String.IsNullOrEmpty(persona.fechanac)) ? "" : "Ingresar la fecha de nacimiento.\r\n";
-            mensaje += (!String.IsNullOrEmpty(persona.celular.ToString())) ? "" : "Ingresar el nombre de la persona";
+            mensaje += (!String.IsNullOrEmpty(persona.celular)) ? "" : "Ingresar el nombre de la persona";
 
             //Para el caso de las listas desplegables, se validará que todos estén seleccionados
             mensaje += (persona.sexo != "-SELECCIONE-") ? "" : "Seleccione el sexo.\r\n";
@@ -170,7 +172,7 @@ namespace proyecto.Controllers
             //validación de los números (dni y celular)
             int num;
             mensaje += (Int32.TryParse(persona.dni, out num)) ? "" : "El DNI solo debe contener números.\r\n";
-            mensaje += (Int32.TryParse(persona.celular.ToString(), out num)) ? "" : "El celular solo debe contener números.\r\n";
+            mensaje += (Int32.TryParse(persona.celular, out num)) ? "" : "El celular solo debe contener números.\r\n";
 
             //validación de los textos (solo letras con o sin tildes)
             mensaje += (!String.IsNullOrEmpty(persona.nombres)) && ValidarPalabra(persona.nombres) ? "" : "Los nombres solo pueden contener letras (a-z, A-z) con o sin tildes.\r\n";
@@ -239,7 +241,7 @@ namespace proyecto.Controllers
             }
             else
             {
-                return Content(resultado);
+                return Content(resultado); //Abre un archivo en otro lugar
             }
         }
 
@@ -261,15 +263,17 @@ namespace proyecto.Controllers
                                                     fechanac=line.Split(";")[5], 
                                                     sexo=line.Split(";")[6], 
                                                     distrito=line.Split(";")[7], 
-                                                    celular=Convert.ToInt32(line.Split(";")[8].ToString()), 
+                                                    celular=line.Split(";")[8], 
                                                     estado=line.Split(";")[9], 
                                                     fechacreacion=line.Split(";")[10]
                     });
                     modelo = modelo.OrderBy(a=> a.id).ToList();
                 }
             }
+            /*
             if(modelo.Count ==0 || modelo == null)
                 modelo = (new ListModel()).ListaPersonas();
+            */
             return modelo;
         }
         public void EscribirEnTXT(List<ListModel> lista)
